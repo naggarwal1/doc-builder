@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal for Northwind Health · Flint Studio</title>
+<meta name="description" content="Flint Studio proposal: 3-month engagement to redesign Northwind Health's member portal. Discovery, design system, engineering handoff.">
+<meta property="og:title" content="Proposal for Northwind Health">
+<meta property="og:description" content="Flint Studio proposal: 3-month engagement to redesign Northwind Health's member portal.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap');
+  :root {
+    --ink: #0a2540; --muted: #5a6478; --soft: #8b94a8; --bg: #faf8f3; --surface: #ffffff;
+    --border: #e4e7ed; --accent: #00d4aa; --accent-soft: rgba(0, 212, 170, 0.08);
+    --heading-font: 'Inter', sans-serif;
+    --body-font: 'Source Serif 4', Georgia, serif;
+    --text-base: 17px; --text-lg: 20px; --text-xl: 26px; --text-3xl: 48px; --text-4xl: 72px;
+    --content-max: 760px; --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--body-font); font-size: var(--text-base); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .page { min-height: 100vh; padding: 80px 48px; max-width: var(--content-max); margin: 0 auto; display: flex; flex-direction: column; justify-content: flex-start; position: relative; border-bottom: 1px dashed var(--border); }
+  .page:last-child { border-bottom: none; }
+  .page-num { position: absolute; top: 32px; right: 48px; font-family: var(--heading-font); font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--soft); text-transform: uppercase; }
+  .page.cover { justify-content: center; text-align: left; min-height: 100vh; padding: 80px 48px; }
+  .page.cover .cover-inner { max-width: 640px; }
+  .cover-firm { font-family: var(--heading-font); font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 48px; }
+  .cover-title { font-family: var(--heading-font); font-size: var(--text-4xl); font-weight: 800; letter-spacing: -2px; line-height: 1; margin: 0 0 24px; color: var(--ink); }
+  .cover-deck { font-family: var(--body-font); font-size: 22px; font-style: italic; color: var(--muted); line-height: 1.4; margin: 0 0 64px; max-width: 520px; }
+  .cover-meta { display: grid; grid-template-columns: repeat(3, auto); gap: 48px; margin-top: auto; padding-top: 48px; border-top: 1px solid var(--border); }
+  .cover-meta-label { font-family: var(--heading-font); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
+  .cover-meta-value { font-family: var(--heading-font); font-size: 16px; font-weight: 600; color: var(--ink); }
+  .page-eyebrow { font-family: var(--heading-font); font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  h2.page-title { font-family: var(--heading-font); font-size: var(--text-3xl); font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; margin: 0 0 32px; color: var(--ink); }
+  h3 { font-family: var(--heading-font); font-size: var(--text-lg); font-weight: 700; margin: 32px 0 12px; color: var(--ink); }
+  p { margin: 0 0 18px; }
+  ul, ol { margin: 0 0 24px; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 600; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 32px; margin: 24px 0 0; font-family: var(--heading-font); font-size: 15px; }
+  .toc ol { margin: 0; padding: 0; list-style: none; counter-reset: toc; }
+  .toc li { counter-increment: toc; padding: 10px 0; border-bottom: 1px dashed var(--border); display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
+  .toc li:last-child { border-bottom: none; }
+  .toc li::before { content: counter(toc, decimal-leading-zero); color: var(--accent); font-weight: 700; margin-right: 16px; font-size: 13px; min-width: 24px; }
+  .toc li a { color: var(--ink); text-decoration: none; font-weight: 500; flex: 1; }
+  .toc li a:hover { color: var(--accent); }
+  .toc li .toc-page { color: var(--soft); font-weight: 600; font-size: 13px; font-feature-settings: 'tnum'; }
+  .pricing { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin: 28px 0; overflow: hidden; }
+  .price-line { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--border); font-family: var(--heading-font); }
+  .price-line:last-child { border-bottom: none; }
+  .price-label { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .price-value { font-family: var(--heading-font); font-size: 18px; font-weight: 700; color: var(--ink); font-feature-settings: 'tnum'; }
+  .price-line.total { background: var(--accent-soft); border-top: 2px solid var(--accent); }
+  .price-line.total .price-label { font-size: 16px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 1px; }
+  .price-line.total .price-value { font-size: 24px; color: var(--accent); font-weight: 800; letter-spacing: -0.5px; }
+  .timeline { margin: 28px 0; }
+  .timeline-phase { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .timeline-phase:last-child { border-bottom: none; }
+  .timeline-when { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); padding-top: 2px; }
+  .timeline-what-title { font-family: var(--heading-font); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .timeline-what-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
+  .signature { margin-top: auto; padding-top: 40px; border-top: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 48px; font-family: var(--heading-font); }
+  .sig-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 32px; }
+  .sig-line { border-bottom: 1px solid var(--ink); padding-bottom: 6px; margin-bottom: 10px; min-height: 36px; font-size: 16px; color: var(--ink); }
+  .sig-name { font-size: 13px; color: var(--muted); }
+  @media (max-width: 640px) { :root { --text-3xl: 36px; --text-4xl: 52px; --text-xl: 22px; } .page { padding: 56px 24px; min-height: auto; } .cover-meta { grid-template-columns: 1fr; gap: 20px; } .signature { grid-template-columns: 1fr; gap: 32px; } .timeline-phase { grid-template-columns: 1fr; gap: 8px; } }
+  @media print { :root { --bg: white; --surface: white; --accent: #333; --border: #999; } body { background: white; color: black; font-size: 11pt; } .page { min-height: auto; max-width: none; padding: 32pt 40pt; border-bottom: none; page-break-after: always; } .page:last-child { page-break-after: auto; } .page-num { display: none; } h2.page-title, h3 { page-break-after: avoid; } .pricing, .timeline-phase, .signature { page-break-inside: avoid; } .signature { border-top: 2px solid black; } }
+</style>
+</head>
+<body id="top">
+
+<section class="page cover">
+  <div class="cover-inner">
+    <div class="cover-firm">Flint Studio</div>
+    <h1 class="cover-title">Proposal for Northwind Health</h1>
+    <p class="cover-deck">A 3-month engagement to redesign your member portal, from discovery through engineering handoff.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-cell">
+        <div class="cover-meta-label">Prepared for</div>
+        <div class="cover-meta-value">Northwind Health</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="cover-meta-label">Date</div>
+        <div class="cover-meta-value">April 15, 2026</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="cover-meta-label">Ref</div>
+        <div class="cover-meta-value">FLINT-2026-Q2-037</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="contents">
+  <span class="page-num">Page 02</span>
+  <div class="page-eyebrow">Contents</div>
+  <h2 class="page-title">What's inside</h2>
+  <nav class="toc">
+    <ol>
+      <li><a href="#summary">Summary</a><span class="toc-page">p. 03</span></li>
+      <li><a href="#scope">Scope</a><span class="toc-page">p. 04</span></li>
+      <li><a href="#timeline">Timeline</a><span class="toc-page">p. 05</span></li>
+      <li><a href="#pricing">Investment</a><span class="toc-page">p. 06</span></li>
+      <li><a href="#terms">Terms</a><span class="toc-page">p. 07</span></li>
+      <li><a href="#sign">Acceptance</a><span class="toc-page">p. 08</span></li>
+    </ol>
+  </nav>
+</section>
+
+<section class="page" id="summary">
+  <span class="page-num">Page 03</span>
+  <div class="page-eyebrow">01 · Summary</div>
+  <h2 class="page-title">Summary</h2>
+  <p>Northwind Health's member portal is the front door to your entire product experience. Members use it to enroll, manage dependents, submit claims, and resolve issues. Small frictions there become large drops in retention and support load.</p>
+  <p>We'd like to partner with you on a focused 3-month engagement to rebuild the portal from the ground up. The work breaks into three phases: discovery &amp; research, design system and high-fidelity mockups, and engineering handoff with QA support. By the end, you'll have a production-ready design, a documented system your engineering team can extend, and the research artifacts to justify future decisions.</p>
+  <p>We've done this kind of work with three healthtech companies in the last 18 months. The playbook is tested. The timeline is realistic.</p>
+</section>
+
+<section class="page" id="scope">
+  <span class="page-num">Page 04</span>
+  <div class="page-eyebrow">02 · Scope</div>
+  <h2 class="page-title">Scope</h2>
+  <h3>Phase 1: Discovery &amp; Research (4 weeks)</h3>
+  <ul>
+    <li>Stakeholder interviews across product, engineering, support, and clinical teams (estimated 12-15 conversations)</li>
+    <li>Member research: 20 moderated sessions, 200 survey responses, support-ticket pattern analysis</li>
+    <li>Competitive and analogous-experience audit across healthcare, insurance, and adjacent consumer fintech</li>
+    <li>Findings report with prioritized opportunity map</li>
+  </ul>
+  <h3>Phase 2: Design System + Mockups (5 weeks)</h3>
+  <ul>
+    <li>Design system built in Figma: type scale, color tokens, spacing grid, component library (est. 60-80 components)</li>
+    <li>Accessibility guidelines baked in at the token level (WCAG 2.2 AA minimum)</li>
+    <li>High-fidelity mockups for 12 priority member flows</li>
+    <li>Two rounds of review and iteration with your team</li>
+  </ul>
+  <h3>Phase 3: Engineering Handoff + QA Support (3 weeks)</h3>
+  <ul>
+    <li>Full design specifications documented alongside each component</li>
+    <li>Kickoff workshop with your engineering team (half-day, on-site preferred)</li>
+    <li>Weekly office hours for the engineering team during build-out</li>
+    <li>Design QA on 3 major release candidates</li>
+  </ul>
+</section>
+
+<section class="page" id="timeline">
+  <span class="page-num">Page 05</span>
+  <div class="page-eyebrow">03 · Timeline</div>
+  <h2 class="page-title">Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-phase">
+      <div class="timeline-when">Weeks 1–4</div>
+      <div>
+        <div class="timeline-what-title">Discovery &amp; Research</div>
+        <div class="timeline-what-desc">Interviews, research, audit, findings report.</div>
+      </div>
+    </div>
+    <div class="timeline-phase">
+      <div class="timeline-when">Weeks 5–9</div>
+      <div>
+        <div class="timeline-what-title">Design System + Mockups</div>
+        <div class="timeline-what-desc">Token system, component library, 12 flow designs, two review cycles.</div>
+      </div>
+    </div>
+    <div class="timeline-phase">
+      <div class="timeline-when">Weeks 10–12</div>
+      <div>
+        <div class="timeline-what-title">Handoff + QA</div>
+        <div class="timeline-what-desc">Specification, engineering kickoff, weekly office hours, QA on release candidates.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="pricing">
+  <span class="page-num">Page 06</span>
+  <div class="page-eyebrow">04 · Investment</div>
+  <h2 class="page-title">Investment</h2>
+  <div class="pricing">
+    <div class="price-line"><div class="price-label">Phase 1: Discovery &amp; Research</div><div class="price-value">$28,000</div></div>
+    <div class="price-line"><div class="price-label">Phase 2: Design System &amp; Mockups</div><div class="price-value">$52,000</div></div>
+    <div class="price-line"><div class="price-label">Phase 3: Handoff &amp; QA Support</div><div class="price-value">$18,000</div></div>
+    <div class="price-line total"><div class="price-label">Total Investment</div><div class="price-value">$98,000</div></div>
+  </div>
+</section>
+
+<section class="page" id="terms">
+  <span class="page-num">Page 07</span>
+  <div class="page-eyebrow">05 · Terms</div>
+  <h2 class="page-title">Terms</h2>
+  <ul>
+    <li><strong>Payment:</strong> 50% upfront on signing, remaining 50% invoiced net 30 on phase completion milestones (Phase 1 + Phase 2 end).</li>
+    <li><strong>Proposal validity:</strong> This proposal is valid for 30 days from the date above.</li>
+    <li><strong>Assumptions:</strong> Access to internal stakeholders for discovery, one decision-maker accountable for design reviews, and engineering availability for the kickoff workshop.</li>
+    <li><strong>Change requests:</strong> Scope changes will be quoted separately and signed off before work begins.</li>
+    <li><strong>Ownership:</strong> All deliverables, source files, and research artifacts transfer to Northwind Health upon final payment.</li>
+  </ul>
+</section>
+
+<section class="page" id="sign">
+  <span class="page-num">Page 08</span>
+  <div class="page-eyebrow">06 · Acceptance</div>
+  <h2 class="page-title">Acceptance</h2>
+  <p>To move forward, please countersign below. We'll follow up with a signed countersignature and the kickoff schedule within two business days.</p>
+  <div class="signature">
+    <div class="sig-column">
+      <div class="sig-label">Northwind Health</div>
+      <div class="sig-line"></div>
+      <div class="sig-name">Signature · Printed Name · Title · Date</div>
+    </div>
+    <div class="sig-column">
+      <div class="sig-label">Flint Studio</div>
+      <div class="sig-line">Priya Kapoor</div>
+      <div class="sig-name">Principal, Flint Studio · April 15, 2026</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

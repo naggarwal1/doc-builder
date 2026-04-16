@@ -1,0 +1,178 @@
+<!--
+  DOC BUILDER TEMPLATE: one-pager
+  Use for: tight single-scroll docs. Product one-pagers, executive briefs, partnership overviews, role briefs.
+  Design: Strong hero section, max ~3 body sections, visual kicker. No TOC (scope is small).
+
+  Placeholders:
+    <!-- EYEBROW -->      Label (e.g., "PRODUCT BRIEF", "Q1 ROLE", "PARTNERSHIP")
+    <!-- TITLE -->        The thing this doc is about (h1)
+    <!-- DECK -->         One-sentence promise or statement
+    <!-- HERO_FACTS -->   3-5 key facts as a compact grid. Pattern below.
+    <!-- CONTENT -->      2-4 sections with headings. Keep it tight.
+    <!-- CTA -->          A clear next-step or ask in its own callout box
+    <!-- META_DESC -->    Description for <meta>
+
+  Hero facts pattern:
+    <div class="facts">
+      <div class="fact"><span class="fact-label">What</span><span class="fact-value">The thing</span></div>
+      <div class="fact"><span class="fact-label">Who</span><span class="fact-value">For whom</span></div>
+      <div class="fact"><span class="fact-label">Why</span><span class="fact-value">Why now</span></div>
+    </div>
+
+  After filling, remove this comment.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><!-- TITLE --></title>
+<meta name="description" content="<!-- META_DESC -->">
+<meta property="og:title" content="<!-- TITLE -->">
+<meta property="og:description" content="<!-- META_DESC -->">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<!-- TITLE -->">
+<meta name="twitter:description" content="<!-- META_DESC -->">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap');
+  :root {
+    --ink: #1a1a1a; --muted: #666; --soft: #888; --bg: #faf8f3; --surface: #ffffff;
+    --border: #e8e4dc; --accent: #ff5722; --accent-soft: rgba(255, 87, 34, 0.08);
+    --heading-font: 'Inter', sans-serif;
+    --body-font: 'Source Serif 4', Georgia, serif;
+    --text-base: 18px; --text-lg: 22px; --text-xl: 28px; --text-2xl: 40px; --text-3xl: 56px;
+    --content-max: 760px; --doc-padding: 64px 40px 80px; --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--body-font); font-size: var(--text-base); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .doc { max-width: var(--content-max); margin: 0 auto; padding: var(--doc-padding); }
+  .eyebrow { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  h1 { font-family: var(--heading-font); font-size: var(--text-3xl); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin: 0 0 12px; }
+  h2 { font-family: var(--heading-font); font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.5px; margin: 40px 0 14px; }
+  h3 { font-family: var(--heading-font); font-size: var(--text-lg); font-weight: 700; margin: 24px 0 10px; }
+  .deck { font-family: var(--body-font); font-size: var(--text-lg); color: var(--muted); line-height: 1.4; margin: 0 0 32px; font-weight: 400; font-style: italic; }
+  p { margin: 0 0 16px; }
+  ul, ol { margin: 0 0 20px; padding-left: 24px; }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 600; }
+  a { color: var(--accent); text-decoration: underline; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; margin: 0 0 40px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .fact { padding: 20px 24px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; }
+  .fact:last-child { border-right: none; }
+  .fact-label { font-family: var(--heading-font); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); }
+  .fact-value { font-family: var(--heading-font); font-size: 16px; font-weight: 600; color: var(--ink); }
+  .cta { background: var(--ink); color: white; border-radius: var(--radius); padding: 32px 36px; margin: 48px 0 24px; }
+  .cta h2 { color: white; margin-top: 0; font-size: var(--text-lg); }
+  .cta p { color: rgba(255, 255, 255, 0.8); margin-bottom: 16px; }
+  .cta .cta-button { display: inline-block; background: var(--accent); color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-family: var(--heading-font); font-weight: 600; font-size: 15px; margin-top: 8px; }
+  .cta .cta-button:hover { opacity: 0.9; }
+  @media (max-width: 640px) { :root { --text-3xl: 36px; --text-xl: 22px; --doc-padding: 48px 24px 64px; } .facts { grid-template-columns: 1fr; } .fact { border-right: none; border-bottom: 1px solid var(--border); } .fact:last-child { border-bottom: none; } }
+  @media print { body { background: white; color: black; font-size: 11pt; } .doc { padding: 0; } .cta { background: white; color: black; border: 1px solid #999; } .cta h2, .cta p { color: black; } .facts { page-break-inside: avoid; border: 1px solid #999; } a[href]:not([href^="#"])::after { content: ' (' attr(href) ')'; font-size: 0.85em; color: #666; } }
+
+  .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 100; transition: width 0.08s linear; pointer-events: none; }
+  @media print { .reading-progress { display: none; } }
+</style>
+</head>
+<body>
+
+
+<div class="reading-progress"></div>
+<article class="doc">
+
+  <div class="eyebrow"><!-- EYEBROW --></div>
+
+  <h1><!-- TITLE --></h1>
+
+  <p class="deck"><!-- DECK --></p>
+
+  <!-- HERO_FACTS -->
+
+  <!-- CONTENT -->
+
+  <!-- CTA -->
+
+</article>
+
+
+<script>
+/* Doc Builder interactive enhancements. DO NOT REMOVE. Powers reading progress bar, active TOC highlighting, and animated metric counters. */
+(function(){
+  // 1. Reading progress bar
+  var bar = document.querySelector('.reading-progress');
+  if (bar) {
+    var update = function() {
+      var h = document.documentElement;
+      var s = h.scrollTop || document.body.scrollTop;
+      var t = h.scrollHeight - h.clientHeight;
+      bar.style.width = (t > 0 ? (s / t) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+  // 2. Active TOC highlighting
+  var tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+  if (tocLinks.length && 'IntersectionObserver' in window) {
+    var linkById = {};
+    tocLinks.forEach(function(a){ var id = a.getAttribute('href').slice(1); if (id) linkById[id] = a; });
+    var sections = Object.keys(linkById).map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    if (sections.length) {
+      var tocObs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) {
+            tocLinks.forEach(function(a){ a.classList.remove('active'); });
+            var a = linkById[e.target.id];
+            if (a) a.classList.add('active');
+          }
+        });
+      }, { rootMargin: '0px 0px -80% 0px' });
+      sections.forEach(function(s){ tocObs.observe(s); });
+    }
+  }
+  // 3. Animated metric counters
+  var metrics = document.querySelectorAll('.metric-value, .deck-metric-value');
+  if (metrics.length && 'IntersectionObserver' in window) {
+    var animate = function(el) {
+      var original = el.textContent.trim();
+      var m = original.match(/^([^0-9\-]*)(-?[0-9,]+\.?[0-9]*)(.*)$/);
+      if (!m) return;
+      var prefix = m[1], numStr = m[2], suffix = m[3];
+      var target = parseFloat(numStr.replace(/,/g, ''));
+      if (isNaN(target)) return;
+      var hasCommas = numStr.indexOf(',') > -1;
+      var decimals = (numStr.split('.')[1] || '').length;
+      var start = performance.now();
+      var frame = function(t) {
+        var p = Math.min((t - start) / 900, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var cur = target * eased;
+        var out;
+        if (decimals > 0) out = cur.toFixed(decimals);
+        else out = Math.round(cur).toString();
+        if (hasCommas) {
+          var n = parseFloat(out);
+          out = n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        }
+        el.textContent = prefix + out + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = original;
+      };
+      requestAnimationFrame(frame);
+    };
+    var seen = new WeakSet();
+    var metricObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting && !seen.has(e.target)) {
+          seen.add(e.target);
+          animate(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    metrics.forEach(function(el){ metricObs.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

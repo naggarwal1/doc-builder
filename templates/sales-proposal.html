@@ -1,0 +1,339 @@
+<!--
+  DOC BUILDER TEMPLATE: sales-proposal
+  Use for: client-facing proposals. Scope + pricing + terms. Often has a signature section.
+  Layout: PAGED. Cover page fills the viewport, each major section gets its own "page" feel on screen and an actual page break in print.
+
+  Placeholders:
+    <!-- FIRM -->         Your firm/company name (eyebrow on cover)
+    <!-- TITLE -->        Proposal title (usually "Proposal for [Client]")
+    <!-- CLIENT -->       Client name
+    <!-- DATE -->         Date of proposal
+    <!-- PROPOSAL_ID -->  Optional proposal ID / ref number
+    <!-- DECK -->         One-sentence summary of what's being proposed
+    <!-- TOC -->          TOC on second page
+    <!-- SUMMARY -->      Executive summary section (own page)
+    <!-- SCOPE -->        Scope section with deliverables (own page)
+    <!-- TIMELINE -->     Timeline section (own page)
+    <!-- PRICING -->      Pricing / investment block (own page). See pattern below.
+    <!-- TERMS -->        Terms, assumptions, next steps (own page)
+    <!-- SIGNATURE -->    Signature block (own page)
+    <!-- META_DESC -->    Description for <meta>
+
+  Structural note: wrap each major section in <section class="page">...</section>
+  so it gets the page-break styling. The cover page uses <section class="page cover">.
+
+  After filling, remove this comment.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><!-- TITLE --></title>
+<meta name="description" content="<!-- META_DESC -->">
+<meta property="og:title" content="<!-- TITLE -->">
+<meta property="og:description" content="<!-- META_DESC -->">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<!-- TITLE -->">
+<meta name="twitter:description" content="<!-- META_DESC -->">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap');
+  :root {
+    --ink: #1a1a1a; --muted: #666; --soft: #888; --bg: #faf8f3; --surface: #ffffff;
+    --border: #e8e4dc; --accent: #ff5722; --accent-soft: rgba(255, 87, 34, 0.08);
+    --heading-font: 'Inter', sans-serif;
+    --body-font: 'Source Serif 4', Georgia, serif;
+    --text-base: 17px; --text-lg: 20px; --text-xl: 26px; --text-3xl: 48px; --text-4xl: 72px;
+    --content-max: 760px; --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--body-font); font-size: var(--text-base); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* PAGED LAYOUT. Each section is a "page" on screen, and a real page break in print */
+  .page {
+    min-height: 100vh;
+    padding: 80px 48px;
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  .page:last-child { border-bottom: none; }
+
+  /* Page number indicator in corner */
+  .page-num {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    font-family: var(--heading-font);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--soft);
+    text-transform: uppercase;
+  }
+
+  /* Cover page. Centered, big, sets the tone */
+  .page.cover {
+    justify-content: center;
+    text-align: left;
+    min-height: 100vh;
+    padding: 80px 48px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .page.cover .cover-inner { max-width: 640px; }
+  .cover-firm { font-family: var(--heading-font); font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 48px; }
+  .cover-title { font-family: var(--heading-font); font-size: var(--text-4xl); font-weight: 800; letter-spacing: -2px; line-height: 1; margin: 0 0 24px; color: var(--ink); }
+  .cover-deck { font-family: var(--body-font); font-size: 22px; font-style: italic; color: var(--muted); line-height: 1.4; margin: 0 0 64px; max-width: 520px; }
+  .cover-meta { display: grid; grid-template-columns: repeat(3, auto); gap: 48px; margin-top: auto; padding-top: 48px; border-top: 1px solid var(--border); }
+  .cover-meta-cell { font-family: var(--heading-font); }
+  .cover-meta-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
+  .cover-meta-value { font-size: 16px; font-weight: 600; color: var(--ink); }
+
+  /* Regular section pages */
+  .page-eyebrow { font-family: var(--heading-font); font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  h2.page-title { font-family: var(--heading-font); font-size: var(--text-3xl); font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; margin: 0 0 32px; color: var(--ink); scroll-margin-top: 24px; }
+  h3 { font-family: var(--heading-font); font-size: var(--text-lg); font-weight: 700; margin: 32px 0 12px; }
+  p { margin: 0 0 18px; }
+  ul, ol { margin: 0 0 24px; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 600; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* TOC */
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 32px; margin: 24px 0 0; font-family: var(--heading-font); font-size: 15px; }
+  .toc-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 16px; }
+  .toc ol { margin: 0; padding: 0; list-style: none; counter-reset: toc; }
+  .toc li { counter-increment: toc; padding: 8px 0; border-bottom: 1px dashed var(--border); display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
+  .toc li:last-child { border-bottom: none; }
+  .toc li::before { content: counter(toc, decimal-leading-zero); color: var(--accent); font-weight: 700; margin-right: 16px; font-size: 13px; min-width: 24px; }
+  .toc li a { color: var(--ink); text-decoration: none; font-weight: 500; flex: 1; }
+  .toc li a:hover { color: var(--accent); }
+  .toc li .toc-page { color: var(--soft); font-weight: 600; font-size: 13px; font-feature-settings: 'tnum'; }
+
+  /* Pricing block */
+  .pricing { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin: 28px 0; overflow: hidden; }
+  .price-line { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--border); font-family: var(--heading-font); }
+  .price-line:last-child { border-bottom: none; }
+  .price-label { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .price-value { font-family: var(--heading-font); font-size: 18px; font-weight: 700; color: var(--ink); font-feature-settings: 'tnum'; }
+  .price-line.total { background: var(--accent-soft); border-top: 2px solid var(--accent); }
+  .price-line.total .price-label { font-size: 16px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 1px; }
+  .price-line.total .price-value { font-size: 24px; color: var(--accent); font-weight: 800; letter-spacing: -0.5px; }
+
+  /* Timeline block */
+  .timeline { margin: 28px 0; }
+  .timeline-phase { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .timeline-phase:last-child { border-bottom: none; }
+  .timeline-when { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); padding-top: 2px; }
+  .timeline-what-title { font-family: var(--heading-font); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .timeline-what-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
+
+  /* Signature block */
+  .signature { margin-top: auto; padding-top: 40px; border-top: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 48px; font-family: var(--heading-font); }
+  .sig-column { }
+  .sig-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 32px; }
+  .sig-line { border-bottom: 1px solid var(--ink); padding-bottom: 6px; margin-bottom: 10px; min-height: 36px; font-size: 16px; color: var(--ink); }
+  .sig-name { font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    :root { --text-3xl: 36px; --text-4xl: 52px; --text-xl: 22px; }
+    .page { padding: 56px 24px; min-height: auto; }
+    .page.cover { padding: 56px 24px; min-height: 90vh; }
+    .page-num { top: 24px; right: 24px; }
+    .cover-meta { grid-template-columns: 1fr; gap: 20px; }
+    .signature { grid-template-columns: 1fr; gap: 32px; }
+    .timeline-phase { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media print {
+    :root { --bg: white; --surface: white; --accent: #333; --border: #999; }
+    body { background: white; color: black; font-size: 11pt; }
+    .page { min-height: auto; max-width: none; padding: 32pt 40pt; border-bottom: none; page-break-after: always; break-after: always; }
+    .page:last-child { page-break-after: auto; }
+    .page.cover { min-height: auto; page-break-after: always; }
+    .page-num { display: none; }
+    h2.page-title, h3 { page-break-after: avoid; }
+    .pricing, .timeline-phase, .signature { page-break-inside: avoid; border: 1px solid #999; }
+    .signature { border-top: 2px solid black; }
+    a[href]:not([href^="#"])::after { content: ' (' attr(href) ')'; font-size: 0.85em; color: #666; }
+  }
+
+  .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 100; transition: width 0.08s linear; pointer-events: none; }
+  @media print { .reading-progress { display: none; } }
+  .toc a.active { color: var(--accent); font-weight: 600; }
+  .toc a.active::after { content: ' ←'; margin-left: 8px; font-size: 12px; color: var(--accent); }
+</style>
+</head>
+<body id="top">
+
+
+<div class="reading-progress"></div>
+<!-- COVER PAGE -->
+<section class="page cover">
+  <div class="cover-inner">
+    <div class="cover-firm"><!-- FIRM --></div>
+    <h1 class="cover-title"><!-- TITLE --></h1>
+    <p class="cover-deck"><!-- DECK --></p>
+    <div class="cover-meta">
+      <div class="cover-meta-cell">
+        <div class="cover-meta-label">Prepared for</div>
+        <div class="cover-meta-value"><!-- CLIENT --></div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="cover-meta-label">Date</div>
+        <div class="cover-meta-value"><!-- DATE --></div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="cover-meta-label">Ref</div>
+        <div class="cover-meta-value"><!-- PROPOSAL_ID --></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 2: TABLE OF CONTENTS -->
+<section class="page" id="contents">
+  <span class="page-num">Page 02</span>
+  <div class="page-eyebrow">Contents</div>
+  <h2 class="page-title">What's inside</h2>
+  <!-- TOC -->
+</section>
+
+<!-- PAGE 3: SUMMARY -->
+<section class="page" id="summary">
+  <span class="page-num">Page 03</span>
+  <div class="page-eyebrow">01 · Summary</div>
+  <h2 class="page-title">Summary</h2>
+  <!-- SUMMARY -->
+</section>
+
+<!-- PAGE 4: SCOPE -->
+<section class="page" id="scope">
+  <span class="page-num">Page 04</span>
+  <div class="page-eyebrow">02 · Scope</div>
+  <h2 class="page-title">Scope</h2>
+  <!-- SCOPE -->
+</section>
+
+<!-- PAGE 5: TIMELINE -->
+<section class="page" id="timeline">
+  <span class="page-num">Page 05</span>
+  <div class="page-eyebrow">03 · Timeline</div>
+  <h2 class="page-title">Timeline</h2>
+  <!-- TIMELINE -->
+</section>
+
+<!-- PAGE 6: PRICING -->
+<section class="page" id="pricing">
+  <span class="page-num">Page 06</span>
+  <div class="page-eyebrow">04 · Investment</div>
+  <h2 class="page-title">Investment</h2>
+  <!-- PRICING -->
+</section>
+
+<!-- PAGE 7: TERMS -->
+<section class="page" id="terms">
+  <span class="page-num">Page 07</span>
+  <div class="page-eyebrow">05 · Terms</div>
+  <h2 class="page-title">Terms</h2>
+  <!-- TERMS -->
+</section>
+
+<!-- PAGE 8: SIGNATURE
+     ORDER CONVENTION (do not flip): client goes LEFT, proposer goes RIGHT.
+     Client column: <sig-label>[CLIENT NAME]</sig-label>, empty sig-line, caption "Signature · Printed Name · Title · Date".
+     Proposer column: <sig-label>[FIRM NAME]</sig-label>, sig-line contains the signatory's printed name, caption is "[Title], [Firm] · [Date of proposal]".
+     Rationale: English reading-order puts the eye on the client's action first. Keeps every proposal consistent. -->
+<section class="page" id="sign">
+  <span class="page-num">Page 08</span>
+  <div class="page-eyebrow">06 · Acceptance</div>
+  <h2 class="page-title">Acceptance</h2>
+  <!-- SIGNATURE -->
+</section>
+
+
+<script>
+/* Doc Builder interactive enhancements. DO NOT REMOVE. Powers reading progress bar, active TOC highlighting, and animated metric counters. */
+(function(){
+  // 1. Reading progress bar
+  var bar = document.querySelector('.reading-progress');
+  if (bar) {
+    var update = function() {
+      var h = document.documentElement;
+      var s = h.scrollTop || document.body.scrollTop;
+      var t = h.scrollHeight - h.clientHeight;
+      bar.style.width = (t > 0 ? (s / t) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+  // 2. Active TOC highlighting
+  var tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+  if (tocLinks.length && 'IntersectionObserver' in window) {
+    var linkById = {};
+    tocLinks.forEach(function(a){ var id = a.getAttribute('href').slice(1); if (id) linkById[id] = a; });
+    var sections = Object.keys(linkById).map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    if (sections.length) {
+      var tocObs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) {
+            tocLinks.forEach(function(a){ a.classList.remove('active'); });
+            var a = linkById[e.target.id];
+            if (a) a.classList.add('active');
+          }
+        });
+      }, { rootMargin: '0px 0px -80% 0px' });
+      sections.forEach(function(s){ tocObs.observe(s); });
+    }
+  }
+  // 3. Animated metric counters
+  var metrics = document.querySelectorAll('.metric-value, .deck-metric-value');
+  if (metrics.length && 'IntersectionObserver' in window) {
+    var animate = function(el) {
+      var original = el.textContent.trim();
+      var m = original.match(/^([^0-9\-]*)(-?[0-9,]+\.?[0-9]*)(.*)$/);
+      if (!m) return;
+      var prefix = m[1], numStr = m[2], suffix = m[3];
+      var target = parseFloat(numStr.replace(/,/g, ''));
+      if (isNaN(target)) return;
+      var hasCommas = numStr.indexOf(',') > -1;
+      var decimals = (numStr.split('.')[1] || '').length;
+      var start = performance.now();
+      var frame = function(t) {
+        var p = Math.min((t - start) / 900, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var cur = target * eased;
+        var out;
+        if (decimals > 0) out = cur.toFixed(decimals);
+        else out = Math.round(cur).toString();
+        if (hasCommas) {
+          var n = parseFloat(out);
+          out = n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        }
+        el.textContent = prefix + out + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = original;
+      };
+      requestAnimationFrame(frame);
+    };
+    var seen = new WeakSet();
+    var metricObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting && !seen.has(e.target)) {
+          seen.add(e.target);
+          animate(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    metrics.forEach(function(el){ metricObs.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+/* Print stylesheet. For when someone hits Ctrl+P */
+@media print {
+  :root {
+    --bg: white;
+    --surface: white;
+    --accent: #333;
+    --border: #999;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  .doc {
+    padding: 0;
+    max-width: none;
+  }
+
+  /* Keep sections together on one page when possible */
+  h2, h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  h1 {
+    font-size: 24pt;
+    page-break-after: avoid;
+  }
+
+  p, li, blockquote {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Force collapsibles open when printing */
+  details.collapsible {
+    border: none;
+    padding: 0;
+  }
+
+  details.collapsible summary { display: none; }
+  details.collapsible > *:not(summary) { display: block !important; }
+
+  /* Hide navigation, show content */
+  .toc { border: 1px solid #999; page-break-inside: avoid; }
+  .back-to-top { display: none; }
+
+  /* Links: show the URL after the link text */
+  a[href]:not([href^="#"])::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    color: #666;
+  }
+
+  /* Metrics blocks stay together */
+  .metrics {
+    page-break-inside: avoid;
+    background: white;
+    border: 1px solid #999;
+  }
+
+  /* Remove hover/focus visual cues */
+  a { color: black; text-decoration: underline; }
+}
