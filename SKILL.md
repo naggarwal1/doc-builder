@@ -1,6 +1,6 @@
 ---
 name: doc-builder
-description: Turn rough content into a clean, branded, responsive interactive HTML document. Use this whenever the user mentions "interactive doc", "interactive HTML doc", "interactive document", or wants to write a doc as HTML instead of a PDF. Covers pitch decks, investor updates, board memos, strategy docs, sales proposals, one-pagers, product briefs. Also trigger when the user pastes a draft and says "make this a doc", "make this look good", "style this", "turn this into an interactive doc", "turn this into HTML", or asks for anything that looks like a document output with styling. Produces a single self-contained interactive HTML file that opens in any browser, renders well on mobile, and prints cleanly. Interactive features include table of contents, collapsible sections, slide-by-slide navigation for decks, and paged layouts for proposals.
+description: Turn rough content into a clean, branded, responsive interactive HTML document. Trigger on "interactive doc", "HTML doc", "turn this into a doc", "make this look good", "style this", or when the user wants a document output instead of a PDF. Covers pitch decks, investor updates, sales proposals, one-pagers, articles, memos, strategy docs. Output is a single self-contained HTML file with TOC, collapsibles, slide nav for decks, and paged layouts for proposals. Works on mobile and prints cleanly.
 ---
 
 # Doc Builder
@@ -284,8 +284,10 @@ Accept both. If JSON is provided, parse it. If inline description, extract the v
 - `styles/brand-defaults.css`. Default CSS variables (ink, bg, accent, fonts)
 - `styles/components.css`. TOC, collapsibles, pull quotes, metrics blocks
 - `styles/print.css`. `@media print` rules
-- `examples/example-investor-update.html`. Rendered reference output
-- `examples/example-sales-proposal.html`. Rendered reference output
+- `examples/example-pitch-deck.html`. Rendered reference output (9-slide Series A deck)
+- `examples/example-investor-update.html`. Rendered reference output (Q1 SaaS update with metrics)
+- `examples/example-one-pager.html`. Rendered reference output (founding-engineer role brief)
+- `examples/example-sales-proposal.html`. Rendered reference output (multi-page proposal)
 - `README.md`. User-facing documentation
 
 The styles are designed to be embedded directly into templates' `<style>` blocks rather than linked as separate files. This keeps the output a single self-contained file. Templates already have inlined style blocks. Use the separate `styles/*.css` files as reference when you need to extend or tweak them, not as runtime dependencies.
