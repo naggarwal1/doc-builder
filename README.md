@@ -20,12 +20,28 @@ Six doc types covered:
 
 ## Install
 
+### Recommended: one-command install
+
+Works with Claude Code, Cursor, Codex, Cline, Windsurf, and [40+ other agents](https://github.com/vercel-labs/skills#available-agents) via the open [skills CLI](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add naggarwal1/doc-builder
+```
+
+Add `-g` to install globally across all projects, or `-a claude-code` to target a specific agent.
+
+### Alternative: download the `.skill` package
+
+For Claude Cowork / Claude Desktop users:
+
 1. Download `doc-builder.skill` from the [latest release](https://github.com/naggarwal1/doc-builder/releases/latest).
-2. Open the file. Claude Cowork or Claude Desktop prompts you to `Save skill`. Click it.
-3. Prompt Claude with any draft:
-   ```
-   Turn this into an HTML doc: [paste your draft]
-   ```
+2. Open the file. Cowork or Desktop prompts you to `Save skill`. Click it.
+
+### Then prompt Claude
+
+```
+Turn this into an HTML doc: [paste your draft]
+```
 
 That's the minimum. For a specific format, say so:
 
